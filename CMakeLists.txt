@@ -20,6 +20,7 @@ llvm_map_components_to_libnames(LLVM_LIBS
     Core
     IRReader
     Support
+    Analysis
 )
 
 target_link_libraries(ir_analyzer

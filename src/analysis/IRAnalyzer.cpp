@@ -7,6 +7,8 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IRReader/IRReader.h"
 #include "llvm/Support/SourceMgr.h"
+#include "llvm/Analysis/LoopInfo.h"
+#include "llvm/IR/Dominators.h"
 
 
 using namespace llvm;
@@ -30,6 +32,8 @@ int main() {
 
         if (F.isDeclaration())
             continue;
+            DominatorTree DT(F);
+            LoopInfo LI(DT);  
 
         int basicBlockCount = 0;
         int instructionCount = 0;
@@ -110,6 +114,31 @@ int main() {
 
         std::cout << "Call Instructions: "
                   << callCount << "\n";
+
+        int loopCount = 0;
+
+for (Loop *L : LI) {
+
+    loopCount++;
+
+    BasicBlock *Header = L->getHeader();
+
+    std::cout << "Loop Detected\n";
+
+    if (Header->hasName()) {
+
+    std::cout << "Loop Header: "
+              << Header->getName().str()
+              << "\n";
+}
+else {
+
+    std::cout << "Loop Header: <unnamed block>\n";
+}
+}
+
+std::cout << "Total Loops: "
+          << loopCount << "\n";
     }
 
     return 0;
