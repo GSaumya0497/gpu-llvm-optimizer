@@ -64,7 +64,7 @@ gpu-llvm-optimizer/
 
 ### Build Steps
 
-```bash
+--bash
 mkdir build
 cd build
 cmake ..
@@ -74,24 +74,27 @@ make -j
 
 ### Run standalone analyzer
 
-```bash
+--bash
 ./run_pass ../examples/loop.ll
-Expected output
+
+## Expected output
 Function statistics
 Loop detection results
 Loop scoring
 Optimization suggestions
-Running as LLVM Pass Plugin
+
+## Running as LLVM Pass Plugin
 
 The build produces:
-
 libMyAnalysisPass.so
-Run using LLVM opt
+
+## Run using LLVM opt
 opt -load-pass-plugin ./libMyAnalysisPass.so \
 -passes="function(my-analysis-pass)" \
 -disable-output \
 ../examples/loop.ll
-Optimization Model
+
+# Optimization Model
 
 The system uses a heuristic scoring model for loops based on:
 
@@ -106,24 +109,27 @@ High priority optimization targets
 Vectorization candidates
 Memory-bound loops
 Simple loops suitable for unrolling
-Current Limitations
+
+# Current Limitations
 No interprocedural analysis
 No alias analysis integration
 No SSA-based dependency tracking
 Heuristic scoring only (not cost-model accurate)
 Limited GPU-specific optimization logic
-Future Work
+
+# Future Work
 Data dependency analysis (SSA-based)
 Loop-carried dependency detection
 Memory access pattern analysis
 Loop transformation passes (unrolling, LICM)
 GPU mapping (OpenCL/CUDA style thread mapping)
 Integration with LLVM optimization pipeline (O1/O2 simulation)
-Author
+
+# Author
 
 Saumya Gupta
 
-License
+# License
 
 This project is for educational and research purposes. Modify and extend freely for learning and experimentation.
 
