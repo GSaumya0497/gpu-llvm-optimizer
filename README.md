@@ -51,6 +51,10 @@ gpu-llvm-optimizer/
 │   ├── add.c
 │   └── branch.c
 ├── CMakeLists.txt
+├── screenshots/
+│   ├── run_pass_output.png
+│   ├── loop_analysis.png
+│   ├── opt_plugin_output.png
 ├── README.md
 ```
 
@@ -101,6 +105,23 @@ opt -load-pass-plugin ./libMyAnalysisPass.so \
 ../examples/loop.ll
 
 ---
+
+## Screenshots
+
+### Loop Analysis Output
+
+![Loop Analysis](screenshots/loop_analysis.png)
+
+### Running run_pass tool
+
+![Run Pass Output](screenshots/run_pass_output.png)
+
+### LLVM Plugin Execution
+
+![Plugin Output](screenshots/opt_plugin_output.png)
+
+---
+
 ## Optimization Model
 
 The system uses a heuristic scoring model for loops based on:
