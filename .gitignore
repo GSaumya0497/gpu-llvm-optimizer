@@ -71,3 +71,22 @@ Testing/
 build/
 *.dot
 *.png
+
+# build outputs
+build/
+cmake-build-*/
+*.o
+*.so
+*.a
+run_pass
+ir_analyzer
+
+# LLVM temp files
+*.ll
+*.bc
+
+# system files
+.DS_Store
+.vscode/
+.idea/
+

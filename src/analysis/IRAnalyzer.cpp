@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "llvm/IR/CFG.h"
+#include <map>
 #include "llvm/IR/Instruction.h"
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/LLVMContext.h"
@@ -34,6 +35,7 @@ int main() {
             continue;
             DominatorTree DT(F);
             LoopInfo LI(DT);  
+            std::map<std::string, int> opcodeHistogram;
 
         int basicBlockCount = 0;
         int instructionCount = 0;
@@ -58,6 +60,8 @@ int main() {
     for (Instruction &I : BB) {
 
         instructionCount++;
+        std::string opcodeName = I.getOpcodeName();
+        opcodeHistogram[opcodeName]++;
 
         if (isa<LoadInst>(I))
             loadCount++;
@@ -139,6 +143,40 @@ else {
 
 std::cout << "Total Loops: "
           << loopCount << "\n";
+std::cout << "\n=== Opcode Histogram ===\n";
+
+for (auto &Entry : opcodeHistogram) {
+
+    std::cout << Entry.first
+              << " : "
+              << Entry.second
+              << "\n";
+}   
+    std::cout << "\n=== Optimization Suggestions ===\n";
+
+if (loadCount + storeCount > arithmeticCount * 2) {
+
+    std::cout << "- Memory-heavy workload detected\n";
+    std::cout << "  Consider memory optimization/coalescing\n";
+}
+
+if (branchCount > 2) {
+
+    std::cout << "- Branch-heavy CFG detected\n";
+    std::cout << "  Possible GPU warp divergence risk\n";
+}
+
+if (loopCount > 0) {
+
+    std::cout << "- Loop detected\n";
+    std::cout << "  Candidate for loop unrolling/vectorization\n";
+}
+
+if (arithmeticCount > loadCount) {
+
+    std::cout << "- Compute-heavy workload detected\n";
+    std::cout << "  Good candidate for GPU acceleration\n";
+} 
     }
 
     return 0;
