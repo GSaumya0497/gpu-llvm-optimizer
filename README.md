@@ -122,7 +122,7 @@ The following screenshots show loop analysis and optimization scoring results ge
 
 ### Optimization Analysis Output
 
-![Optimization Output](screenshots/optimization_output.png)
+![Optimization Output](screenshots/opt_plugin_output.png)
 
 ---
 
